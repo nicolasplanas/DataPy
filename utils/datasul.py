@@ -1,5 +1,6 @@
 import pyautogui
 import time
+import pygetwindow as gw
 
 from utils.logger import register_log
 
@@ -11,25 +12,21 @@ def cooldown():
 
     time.sleep(time)
 
-def focus_datasul():
+def focus_cd1409():
 
-    register_log("Focando o Datasul...")
+    register_log("Focando na cd1409...")
 
-    # ALT + TAB para focar o Datasul
-    pyautogui.hotkey("alt", "tab")
-    cooldown()
+    janelas = gw.getWindowsWithTitle("Adicionar nome cd1409")
 
-def open_cd1409():
+    if janelas:
 
-    register_log("Abrindo tela CD1409...")
+        janela = janelas[0]
+        janela.activate()  # traz para frente
 
-    pyautogui.hotkey("ctrl","alt", "e")
-    cooldown()
+    else:
 
-    pyautogui.write("cd1409")
-    pyautogui.press("enter")
-
-    time.sleep(3)
+        register_log("Janela não encontrada!")
+    
 
 def fill_request(request):
 
