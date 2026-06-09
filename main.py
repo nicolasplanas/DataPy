@@ -3,8 +3,7 @@ from utils.logger      import register_log
 
 from utils.datasul     import (
 
-    focus_datasul, 
-    open_cd1409, 
+    focus_cd1409,
     fill_request, 
     confirm
 )
