@@ -6,11 +6,11 @@ from utils.logger import register_log
 
 pyautogui.FAILSAFE = True
 
-time = 0.5
+delay = 0.5
 
 def cooldown():
 
-    time.sleep(time)
+    time.sleep(delay)
 
 def focus_ce0206():
 
