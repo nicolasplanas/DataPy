@@ -19,6 +19,8 @@ def execute():
 
     requests = read_excel()
 
+    transferencias = carregar_transferencias()
+
     focus_ce0206()
 
     for request in requests:
@@ -33,7 +35,6 @@ def execute():
                 save_screenshot(f"erro_{request['requisicao']}")
                 continue
 
-            confirm()
 
             register_log(
 

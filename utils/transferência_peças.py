@@ -1,6 +1,7 @@
+import pygetwindow as gw
+import pandas      as pd
 import pyautogui
 import time
-import pygetwindow as gw
 
 from utils.logger import register_log
 
