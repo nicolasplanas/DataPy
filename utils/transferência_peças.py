@@ -36,36 +36,29 @@ def fill_request(request):
     )
 
     pyautogui.write(str(request['item']))
-    pyautogui.press("tab", "tab")
+    pyautogui.press("tab", presses=2)
     
     cooldown()
 
     pyautogui.write(str(request['dep_origem']))
-    pyautogui.press("tab", "tab")
+    pyautogui.press("tab", presses=2)
     
     cooldown()
 
     pyautogui.write(str(request['dep_destino']))
-    pyautogui.press("tab")
+    pyautogui.press("tab", presses=1)
     
     cooldown()
 
     pyautogui.write(str(request['localizacao']))
-    pyautogui.press("tab", "tab")
+    pyautogui.press("tab", presses=2)
     
     cooldown()
 
     pyautogui.write(str(request['quantidade']))
-    pyautogui.press("enter", "enter")
+    pyautogui.press("enter", presses=2)
     
     cooldown()
 
     
     time.sleep(1)
-
-def confirm():
-
-    register_log("Confirmando operação...")
-
-    pyautogui.press('ctrl', 's')
-    time.sleep(2)
