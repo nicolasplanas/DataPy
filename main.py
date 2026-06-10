@@ -4,8 +4,7 @@ from utils.logger      import register_log
 from utils.transferência_peças import (
 
     focus_ce0206,
-    fill_request, 
-    confirm
+    fill_request,
 )
 
 from utils.validations import (
