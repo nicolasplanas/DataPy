@@ -1,9 +1,9 @@
 from utils.excel       import read_excel
 from utils.logger      import register_log
 
-from utils.datasul     import (
+from utils.transferência_peças import (
 
-    focus_cd1409,
+    focus_ce0206,
     fill_request, 
     confirm
 )
@@ -20,9 +20,7 @@ def execute():
 
     requests = read_excel()
 
-    focus_datasul()
-
-    open_cd1409()
+    focus_ce0206()
 
     for request in requests:
 
