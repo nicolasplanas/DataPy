@@ -11,7 +11,9 @@ from utils.transferência_peças import (
 
 def execute():
 
-    register_log("Iniciando a automação...")
+    register_log("Iniciando a automação em 3 seg...")
+
+    time.sleep(3)
 
     transferencias = carregar_transferencias()
 
