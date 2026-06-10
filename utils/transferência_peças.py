@@ -13,6 +13,15 @@ def cooldown():
 
     time.sleep(delay)
 
+def carregar_transferencias():
+    
+    df = pd.read_excel(
+        "database/DataPy.xlsx",
+        sheet_name="Transferência de Peças"
+    )
+
+    return df.to_dict(orient="records")
+
 def focus_ce0206():
 
     register_log("Focando na ce0206...")

@@ -5,46 +5,30 @@ from utils.transferência_peças import (
 
     focus_ce0206,
     fill_request,
-)
-
-from utils.validations import (
-
-    popup_erro_exists,
-    save_screenshot
+    carregar_transferencias
 )
 
 def execute():
 
     register_log("Iniciando a automação...")
 
-    requests = read_excel()
+    request = read_excel()
 
     transferencias = carregar_transferencias()
 
     focus_ce0206()
 
-    for request in requests:
-
+    for request in transferencias:
+        
         try:
-
             fill_request(request)
+            register_log(f"Item {request['item']} transferido com sucesso.")
 
-            if popup_erro_exists():
-
-                register_log(f"Erro encontrado na requisição: {request['requisicao']}")
-                save_screenshot(f"erro_{request['requisicao']}")
-                continue
-
-
+        except Exception as e:
             register_log(
-
-                f"Requisição processada com sucesso: {request['requisicao']}"
+                f"Erro ao transferir {request['item']}: {e}"
             )
-
-        except Exception as error:
-
-            register_log(f"Erro ao processar a requisição {request['requisicao']}: {error}")
-            save_screenshot(f"erro_{request['requisicao']}")
+        continue
 
     register_log("Automação finalizada.")
 
