@@ -14,7 +14,7 @@ def cooldown():
     time.sleep(delay)
 
 def carregar_transferencias():
-    
+
     df = pd.read_excel(
         "database/DataPy.xlsx",
         sheet_name="Transferência de Peças"
@@ -28,15 +28,16 @@ def focus_ce0206():
 
     janelas = gw.getWindowsWithTitle("Adicionar nome ce0206")
 
-    if janelas:
-
-        janela = janelas[0]
-        janela.activate()  # traz para frente
-
-    else:
+    if not janelas:
 
         register_log("Janela não encontrada!")
+        raise RuntimeError("Janela ce0206 não encontrada.")
     
+    janela = janelas[0]
+    janela.activate()
+    time.sleep(0.5)  # traz para frente
+
+    return janela
 
 def fill_request(request):
 
@@ -45,30 +46,21 @@ def fill_request(request):
         f"Transferindo peça: {request['item']}"
     )
 
-    pyautogui.write(str(request['item']))
-    pyautogui.press("tab", presses=2)
-    
-    cooldown()
+    def preencher(valor, tabs=1):
+        pyautogui.write(str(valor))
+        pyautogui.press("tab", presses=tabs)
+        cooldown()
 
-    pyautogui.write(str(request['dep_origem']))
-    pyautogui.press("tab", presses=2)
-    
-    cooldown()
+    preencher(request['item'], tabs=2)
 
-    pyautogui.write(str(request['dep_destino']))
-    pyautogui.press("tab", presses=1)
-    
-    cooldown()
+    preencher(request['dep_origem'], tabs=2)
 
-    pyautogui.write(str(request['localizacao']))
-    pyautogui.press("tab", presses=2)
-    
-    cooldown()
+    preencher(request['dep_destino'], tabs=1)
 
+    preencher(request['localizacao'], tabs=2)
+
+    # Finaliza a transferência
     pyautogui.write(str(request['quantidade']))
     pyautogui.press("enter", presses=2)
-    
-    cooldown()
-
     
     time.sleep(1)
