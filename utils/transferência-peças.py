@@ -40,22 +40,22 @@ def fill_request(request):
     
     cooldown()
 
-    pyautogui.write(str(request['Dep 1']))
+    pyautogui.write(str(request['dep_origem']))
     pyautogui.press("tab", "tab")
     
     cooldown()
 
-    pyautogui.write(str(request['Dep 2']))
+    pyautogui.write(str(request['dep_destino']))
     pyautogui.press("tab")
     
     cooldown()
 
-    pyautogui.write(str(request['Localiz.']))
+    pyautogui.write(str(request['localizacao']))
     pyautogui.press("tab", "tab")
     
     cooldown()
 
-    pyautogui.write(str(request['Quant.']))
+    pyautogui.write(str(request['quantidade']))
     pyautogui.press("enter", "enter")
     
     cooldown()
