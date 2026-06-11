@@ -11,7 +11,9 @@ from utils.transferência_peças import (
 
 def execute():
 
-    register_log("Iniciando a automação...")
+    register_log("Iniciando a automação em 3 seg...")
+
+    time.sleep(3)
 
     transferencias = carregar_transferencias()
 
@@ -56,6 +58,9 @@ def execute():
             register_log(
                 f"Erro ao transferir {item}: {e}"
             )
+
+    # Limpa espaços em branco de todas as colunas
+    df = df.apply(lambda col: col.str.strip())
 
     register_log("Automação finalizada.")
 
