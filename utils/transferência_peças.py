@@ -29,18 +29,18 @@ def focus_ce0206():
 
     register_log("Focando na ce0206...")
 
-    janelas = gw.getWindowsWithTitle("06.9.5631 - CE0206 - 2.00.00.023 - Transferência  Depósitos (Modo Clássico) - 15 - UMOE BIOENERGY")
+    windows = gw.getWindowsWithTitle("06.9.5631 - CE0206 - 2.00.00.023 - Transferência  Depósitos (Modo Clássico) - 15 - UMOE BIOENERGY")
 
-    if not janelas:
+    if not windows:
 
         register_log("Janela não encontrada!")
         raise RuntimeError("Janela ce0206 não encontrada.")
     
-    janela = janelas[0]
-    janela.activate()
+    window = windows[0]
+    window.activate()
     time.sleep(0.5)  # traz para frente
 
-    return janela
+    return window
 
 def fill_request(request):
 
