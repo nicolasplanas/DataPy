@@ -2,7 +2,7 @@ import pygetwindow as gw
 import pyautogui
 import time
 
-from utils.transferência_peças import focus_ce0206
+from utils.transfer_parts import focus_ce0206
 
 print("Selecione a janela, posicione o mouse sobre o local desejado e aguarde 5 segundos...")
 

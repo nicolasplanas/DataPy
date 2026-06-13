@@ -2,11 +2,11 @@ import pandas as pd
 import time
 
 from utils.logger import register_log
-from utils.transferência_peças import (
+from utils.transfer_parts import (
 
     focus_ce0206,
     fill_request,
-    carregar_transferencias
+    loading_transfer
 )
 
 def execute():
@@ -15,14 +15,14 @@ def execute():
 
     time.sleep(3)
 
-    transferencias = carregar_transferencias()
+    transfer = loading_transfer()
 
     # Verificar se a planilha está vazia
-    if not transferencias:
+    if not transfer:
         raise RuntimeError("A planilha está vazia.")
     
     # Verificar se todas as colunas necessárias estão presentes
-    campos = [
+    columns = [
         "item", 
         "dep_origem", 
         "dep_destino", 
@@ -30,20 +30,20 @@ def execute():
         "quantidade"
     ]
 
-    if not set(campos).issubset(transferencias[0].keys()):
+    if not set(columns).issubset(transfer[0].keys()):
         raise RuntimeError("A planilha não possui todas as colunas necessárias.")
 
     focus_ce0206()
 
-    total = len(transferencias)
+    total = len(transfer)
 
-    for indice, request in enumerate(transferencias, start=1):
+    for indice, request in enumerate(transfer, start=1):
 
         register_log(f"[{indice}/{total}] Processando item {request['item']}")
 
         try:
 
-            if any(pd.isna(request[campo]) for campo in campos):
+            if any(pd.isna(request[column]) for column in columns):
                 register_log(f"Item {request['item']} ignorado por conter campos vazios na planilha.")
                 continue
             
@@ -54,9 +54,9 @@ def execute():
             register_log(f"Item {request['item']} transferido com sucesso.")
 
         except Exception as e:
-            item = request.get("item", "DESCONHECIDO")
+            part = request.get("item", "DESCONHECIDO")
             register_log(
-                f"Erro ao transferir {item}: {e}"
+                f"Erro ao transferir {part}: {e}"
             )
 
     # Limpa espaços em branco de todas as colunas

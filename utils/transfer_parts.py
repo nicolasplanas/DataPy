@@ -13,7 +13,7 @@ def cooldown():
 
     time.sleep(delay)
 
-def carregar_transferencias():
+def loading_transfer():
 
     df = pd.read_excel(
         "database/DataPy.xlsx",
@@ -49,8 +49,8 @@ def fill_request(request):
         f"Transferindo peça: {request['item']}"
     )
 
-    def preencher(valor, tabs=1):
-        pyautogui.write(str(valor))
+    def preencher(value, tabs=1):
+        pyautogui.write(str(value))
         pyautogui.press("tab", presses=tabs)
         cooldown()
 
@@ -63,8 +63,8 @@ def fill_request(request):
     preencher(request['localizacao'], tabs=2)
 
     # Finaliza a transferência
-    quantidade = str(request["quantidade"]).replace(".", ",")
-    pyautogui.write(quantidade)
+    amount = str(request["quantidade"]).replace(".", ",")
+    pyautogui.write(amount)
     pyautogui.press("enter", presses=2)
     
     time.sleep(2)
