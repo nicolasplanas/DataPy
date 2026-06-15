@@ -40,6 +40,19 @@ def focus_ce0206():
     window.activate()
     time.sleep(0.5)  # traz para frente
 
+    x = window.left + 174
+    y = window.top  + 198
+
+    pyautogui.moveTo(x, y)
+    time.sleep(delay)
+    color = pyautogui.pixel(x, y)
+
+    if color == (226, 229, 236):
+
+        pyautogui.click(197, 69)
+        time.sleep(delay)
+        pyautogui.press("tab", presses=4)
+    
     return window
 
 def fill_request(request):

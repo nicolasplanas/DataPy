@@ -1,4 +1,17 @@
+from pathlib import Path
+
+import win32com.client
 import pandas as pd
+
+def open_spreadsheet(file_path):
+
+    excel = win32com.client.Dispatch("Excel.Application")
+    excel.Visible = True
+
+    file = str(Path("database/DataPy.xlsx").resolve())
+    
+    workbook = excel.Workbooks.Open(file)
+    workbook.Sheets(file_path).Activate()
 
 def read_excel():
 

@@ -1,3 +1,5 @@
+import os
+from unittest import case
 import pandas as pd
 import time
 
@@ -8,6 +10,72 @@ from utils.transfer_parts import (
     fill_request,
     loading_transfer
 )
+
+def clean():
+
+    os.system("cls" if os.name == "nt" else "clear")
+
+def starting_automation():
+
+    clean()
+    print("Iniciando a automação em 3 segundos...")
+    time.sleep(1)
+
+    clean()
+    print("Iniciando a automação em 2 segundos...")
+    time.sleep(1)
+
+    clean()
+    print("Iniciando a automação em 1 segundo...")
+    time.sleep(1)
+
+    clean()
+
+question = input("----- Bem vindo ao DataPy! -----\n\n" \
+                 "Escolha uma tarefa:\n" \
+                 "1 - Transferência de Peças Guardadas\n" \
+                 "2 - Transferência de Materiais\n" \
+                 "3 - Relatório de EPI\n" \
+                 "4 - RM de EPI\n")
+
+match question:
+
+    case "1":
+
+        clean()
+        delay = input("Escolha o tempo entre as ações (padrão: 0.5s): ")
+
+        clean()
+        print("Abrindo arquivo do excel para adicionar os dados...")
+        time.sleep(1)
+
+        os.startfile("database/DataPy.xlsx")
+
+        clean()
+        input("Pressione ENTER quando terminar de editar a planilha...")
+
+        clean()
+        input("Ao pressionar ENTER novamente, a automação irá iniciar. Certifique-se de que a janela CE0206 esteja aberta e visível.")
+
+        starting_automation()
+
+        focus_ce0206()
+        execute()
+
+    case "2":
+
+        clean()
+        delay = input("Escolha o tempo entre as ações (padrão: 0.5s): ")
+
+    case "3":
+
+        clean()
+        delay = input("Escolha o tempo entre as ações (padrão: 0.5s): ")
+
+    case "4":
+
+        clean()
+        delay = input("Escolha o tempo entre as ações (padrão: 0.5s): ")
 
 def execute():
 
@@ -63,7 +131,3 @@ def execute():
     df = df.apply(lambda col: col.str.strip())
 
     register_log("Automação finalizada.")
-
-if __name__ == "__main__":
-
-    execute()
