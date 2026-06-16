@@ -1,6 +1,6 @@
 from pathlib import Path
 
-import win32com.client
+import win32com.client # type: ignore
 import pandas as pd
 
 def open_spreadsheet(file_path):
@@ -17,7 +17,7 @@ def read_excel():
 
     try:
 
-        df = pd.read_excel("data.xlsx")
+        df = pd.read_excel("database/DataPy.xlsx")
         return df
     
     except Exception as e:

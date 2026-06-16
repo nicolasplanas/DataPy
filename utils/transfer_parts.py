@@ -1,23 +1,16 @@
-import pygetwindow as gw
-import pandas      as pd
-import pyautogui
-import time
+from utils import config
 
-from utils.logger import register_log
+import time
+import pandas as pd
+import pyautogui
 
 pyautogui.FAILSAFE = True
 
-delay = 0.5
-
-def cooldown():
-
-    time.sleep(delay)
-
-def loading_transfer():
+def loading_transfer(sheet):
 
     df = pd.read_excel(
         "database/DataPy.xlsx",
-        sheet_name="Transferência de Peças",
+        sheet_name=sheet,
         dtype={
             "quantidade": str
         }
@@ -25,59 +18,54 @@ def loading_transfer():
 
     return df.to_dict(orient="records")
 
-def focus_ce0206():
 
-    register_log("Focando na ce0206...")
+def cooldown():
 
-    windows = gw.getWindowsWithTitle("06.9.5631 - CE0206 - 2.00.00.023 - Transferência  Depósitos (Modo Clássico) - 15 - UMOE BIOENERGY")
+    time.sleep(config.delay)
 
-    if not windows:
+def fill(value, tabs=1):
 
-        register_log("Janela não encontrada!")
-        raise RuntimeError("Janela ce0206 não encontrada.")
-    
-    window = windows[0]
-    window.activate()
-    time.sleep(0.5)  # traz para frente
+    pyautogui.write(str(value))
+    cooldown()
+    pyautogui.press("tab", presses=tabs)
+    cooldown()
 
-    x = window.left + 174
-    y = window.top  + 198
 
-    pyautogui.moveTo(x, y)
-    time.sleep(delay)
-    color = pyautogui.pixel(x, y)
+def amount(value):
 
-    if color == (226, 229, 236):
+    quantity = str(value).replace(".", ",")
+    pyautogui.write(quantity)
+    cooldown()
 
-        pyautogui.click(197, 69)
-        time.sleep(delay)
-        pyautogui.press("tab", presses=4)
-    
-    return window
 
-def fill_request(request):
+def transfer_parts(request):
 
-    register_log(
+    print(f"Transferindo peça: {request['item']}")
 
-        f"Transferindo peça: {request['item']}"
-    )
-
-    def preencher(value, tabs=1):
-        pyautogui.write(str(value))
-        pyautogui.press("tab", presses=tabs)
-        cooldown()
-
-    preencher(request['item'], tabs=2)
-
-    preencher(request['dep_origem'], tabs=2)
-
-    preencher(request['dep_destino'], tabs=1)
-
-    preencher(request['localizacao'], tabs=2)
+    fill(request['item'], tabs=2)
+    fill(request['dep_origem'], tabs=2)
+    fill(request['dep_destino'], tabs=1)
+    fill(request['loc_destino'], tabs=2)
+    amount(request["quantidade"])
 
     # Finaliza a transferência
-    amount = str(request["quantidade"]).replace(".", ",")
-    pyautogui.write(amount)
-    pyautogui.press("enter", presses=2)
-    
-    time.sleep(2)
+    pyautogui.press("enter")
+    cooldown()
+    pyautogui.press("enter")
+
+
+def transfer_truck(request):
+
+    print(f"Transferindo peça: {request['item']}")
+
+    fill(request['item'], tabs=1)
+    fill(request['dep_origem'], tabs=1)
+    fill(request['loc_origem'], tabs=1)
+    fill(request['dep_destino'], tabs=1)
+    fill(request['loc_destino'], tabs=1)
+    amount(request["quantidade"])
+
+    # Finaliza a transferência
+    pyautogui.press("enter")
+    cooldown()
+    pyautogui.press("enter")
