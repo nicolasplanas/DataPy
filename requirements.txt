@@ -5,3 +5,4 @@ openpyxl
 opencv-python
 pillow
 keyboard
+pywin32

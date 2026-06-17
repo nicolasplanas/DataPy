@@ -1,4 +1,5 @@
-from utils.transfer_parts import loading_transfer, transfer_parts, transfer_truck
+from utils.transfer_parts import loading_sheet, loading_transfer, transfer_parts, transfer_truck
+from utils                import config
 
 import time
 import pyautogui
@@ -9,7 +10,7 @@ def focus_ce0206(delay):
 
     print("Focando na ce0206...")
 
-    windows = gw.getWindowsWithTitle("06.9.5631 - CE0206 - 2.00.00.023 - Transferência  Depósitos (Modo Clássico) - 15 - UMOE BIOENERGY")
+    windows = gw.getWindowsWithTitle(config.ce0206)
 
     if not windows:
 
@@ -18,18 +19,18 @@ def focus_ce0206(delay):
     
     window = windows[0]
     window.activate()
-    time.sleep(0.5)  # traz para frente
+    time.sleep(delay)  # traz para frente
 
     x = window.left + 174
     y = window.top  + 198
 
     pyautogui.moveTo(x, y)
-    time.sleep(delay)
     color = pyautogui.pixel(x, y)
+    time.sleep(delay)
 
     if color == (226, 229, 236):
 
-        pyautogui.click(197, 69)
+        pyautogui.click(window.left + 201, window.top + 69)
         time.sleep(delay)
         pyautogui.press("tab", presses=4)
     
@@ -40,11 +41,11 @@ def start_ce0206(question):
 
     if question == "1":
 
-        transfer = loading_transfer("Transferência de Peças")
+        transfer = loading_sheet("Transferência de Peças")
 
     elif question == "2":
 
-        transfer = loading_transfer("Transferência Caminhão Oficina")
+        transfer = loading_sheet("Transferência Caminhão Oficina")
 
     # Verificar se a planilha está vazia
     if not transfer:
@@ -80,9 +81,9 @@ def start_ce0206(question):
 
     total = len(transfer)
 
-    for indice, request in enumerate(transfer, start=1):
+    for index, request in enumerate(transfer, start=1):
 
-        print(f"[{indice}/{total}] Processando item {request['item']}")
+        print(f"[{index}/{total}] Processando item {request['item']}")
 
         try:
 
@@ -99,7 +100,7 @@ def start_ce0206(question):
 
                 transfer_truck(request)
 
-            time.sleep(1)  # espera a transferência ser processada
+            loading_transfer()  # espera a transferência ser processada
 
             print(f"Item {request['item']} transferido com sucesso.")
 

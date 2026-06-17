@@ -26,6 +26,7 @@ def starting_automation():
 
     clean()
 
+clean()
 question = input("\n----- Bem vindo ao DataPy! -----\n\n" \
                  "Escolha uma tarefa:\n" \
                  "1 - Transferência de Peças Guardadas\n" \
@@ -37,6 +38,28 @@ question = input("\n----- Bem vindo ao DataPy! -----\n\n" \
 match question:
 
     case "1":
+
+        clean()
+        config.delay = float(input("Escolha o tempo entre as ações (padrão: 0.5s): ") or 0.5)
+
+        clean()
+        print("Abrindo arquivo do excel para adicionar os dados...")
+        time.sleep(1)
+
+        open_spreadsheet("Transferência Caminhão Oficina")
+
+        clean()
+        input("Pressione ENTER quando terminar de editar a planilha...")
+
+        clean()
+        input("Ao pressionar ENTER novamente, a automação irá iniciar. Certifique-se de que a janela CE0206 esteja aberta e visível.")
+
+        starting_automation()
+
+        focus_ce0206(config.delay)
+        start_ce0206(question)
+
+    case "2":
 
         clean()
         config.delay = float(input("Escolha o tempo entre as ações (padrão: 0.5s): ") or 0.5)
@@ -57,11 +80,6 @@ match question:
 
         focus_ce0206(config.delay)
         start_ce0206(question)
-
-    case "2":
-
-        clean()
-        config.delay = float(input("Escolha o tempo entre as ações (padrão: 0.5s): ") or 0.5)
 
     case "3":
 

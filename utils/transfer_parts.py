@@ -6,7 +6,7 @@ import pyautogui
 
 pyautogui.FAILSAFE = True
 
-def loading_transfer(sheet):
+def loading_sheet(sheet):
 
     df = pd.read_excel(
         "database/DataPy.xlsx",
@@ -19,9 +19,30 @@ def loading_transfer(sheet):
     return df.to_dict(orient="records")
 
 
+def loading_transfer():
+
+    window = config.ce0206
+
+    x = window.left + 174
+    y = window.top  + 198
+
+    pyautogui.moveTo(x, y)
+    color = pyautogui.pixel(x, y)
+    time.sleep(config.delay)
+
+    if color == (0, 120, 215):
+
+        ...
+        
+    else:
+
+        loading_transfer()
+
+
 def cooldown():
 
     time.sleep(config.delay)
+
 
 def fill(value, tabs=1):
 

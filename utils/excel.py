@@ -1,6 +1,6 @@
 from pathlib import Path
 
-import win32com.client # type: ignore
+import win32com.client
 import pandas as pd
 
 def open_spreadsheet(file_path):
