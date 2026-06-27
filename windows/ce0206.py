@@ -7,11 +7,12 @@ import pyautogui
 import pandas      as pd
 import pygetwindow as gw
 
-def focus_ce0206(delay, ce0206):
+
+def focus_ce0206(delay):
 
     print("Focando na ce0206...")
 
-    windows = gw.getWindowsWithTitle(ce0206)
+    windows = [w for w in gw.getAllWindows() if "CE0206" in w.title]
 
     if not windows:
 
@@ -24,7 +25,7 @@ def focus_ce0206(delay, ce0206):
         pyautogui.hotkey("ctrl", "alt", "x")
         time.sleep(0.5)
 
-        pyautogui.write(window)
+        pyautogui.write("CE0206")
         time.sleep(0.5)
 
         pyautogui.press("enter")
