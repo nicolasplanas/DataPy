@@ -44,7 +44,7 @@ def cooldown():
     time.sleep(config.delay)
 
 
-def fill(value, tabs=1):
+def fill_transfer(value, tabs=1):
 
     pyautogui.write(str(value))
     cooldown()
@@ -63,10 +63,10 @@ def transfer_parts(request):
 
     print(f"Transferindo peça: {request['item']}")
 
-    fill(request['item'], tabs=2)
-    fill(request['dep_origem'], tabs=2)
-    fill(request['dep_destino'], tabs=1)
-    fill(request['loc_destino'], tabs=2)
+    fill_transfer(request['dep_origem'], tabs=2)
+    fill_transfer(request['item'], tabs=2)
+    fill_transfer(request['dep_destino'], tabs=1)
+    fill_transfer(request['loc_destino'], tabs=2)
     amount(request["quantidade"])
 
     # Finaliza a transferência
@@ -79,11 +79,11 @@ def transfer_truck(request):
 
     print(f"Transferindo peça: {request['item']}")
 
-    fill(request['item'], tabs=1)
-    fill(request['dep_origem'], tabs=1)
-    fill(request['loc_origem'], tabs=1)
-    fill(request['dep_destino'], tabs=1)
-    fill(request['loc_destino'], tabs=1)
+    fill_transfer(request['item'], tabs=2)
+    fill_transfer(request['dep_origem'], tabs=1)
+    fill_transfer(request['loc_origem'], tabs=1)
+    fill_transfer(request['dep_destino'], tabs=1)
+    fill_transfer(request['loc_destino'], tabs=2)
     amount(request["quantidade"])
 
     # Finaliza a transferência

@@ -10,6 +10,7 @@ def clean():
 
     os.system("cls" if os.name == "nt" else "clear")
 
+
 def starting_automation():
 
     clean()
@@ -57,7 +58,7 @@ match question:
         starting_automation()
 
         focus_ce0206(config.delay)
-        start_ce0206(question)
+        # start_ce0206(question)
 
     case "2":
 
@@ -78,7 +79,7 @@ match question:
 
         starting_automation()
 
-        focus_ce0206(config.delay)
+        focus_ce0206(config.delay, config.ce0206)
         start_ce0206(question)
 
     case "3":

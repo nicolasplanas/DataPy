@@ -2,9 +2,9 @@ import pygetwindow as gw
 import pyautogui
 import time
 
-print("Selecione a janela, posicione o mouse sobre o local desejado e aguarde 10 segundos...")
+print("Selecione a janela, posicione o mouse sobre o local desejado e aguarde 5 segundos...")
 
-time.sleep(10)
+time.sleep(5)
 
 window = gw.getActiveWindow()
 

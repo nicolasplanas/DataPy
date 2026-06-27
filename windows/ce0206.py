@@ -1,4 +1,5 @@
 from utils.transfer_parts import loading_sheet, loading_transfer, transfer_parts, transfer_truck
+from windows              import open_window
 from utils                import config
 
 import time
@@ -6,16 +7,28 @@ import pyautogui
 import pandas      as pd
 import pygetwindow as gw
 
-def focus_ce0206(delay):
+def focus_ce0206(delay, ce0206):
 
     print("Focando na ce0206...")
 
-    windows = gw.getWindowsWithTitle(config.ce0206)
+    windows = gw.getWindowsWithTitle(ce0206)
 
     if not windows:
 
-        print("Janela não encontrada!")
-        raise RuntimeError("Janela ce0206 não encontrada.")
+        system = gw.getWindowsWithTitle("DATASUL Interactive")
+
+        datasul = system[0]
+        datasul.activate()
+        time.sleep(0.5)
+
+        pyautogui.hotkey("ctrl", "alt", "x")
+        time.sleep(0.5)
+
+        pyautogui.write(window)
+        time.sleep(0.5)
+
+        pyautogui.press("enter")
+        time.sleep(3)
     
     window = windows[0]
     window.activate()
